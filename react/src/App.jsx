@@ -1,5 +1,6 @@
 import "./App.css";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
     >
       <div style={{ display: "flex" }}>
         <div id="card-profile" style={{ marginRight: 100, marginTop: 50 }}>
+          <ToggleButton />
           <ProfileCard />
         </div>
         <div
@@ -172,6 +174,17 @@ function ProfileCard() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ToggleButton() {
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setToggle(!toggle)}>Toggle</button>
+      {toggle ? <div>Hello i am conditonally rendered</div> : null}
     </div>
   );
 }
