@@ -1,4 +1,5 @@
 import "./App.css";
+import PropTypes from "prop-types";
 
 function App() {
   return (
@@ -23,13 +24,30 @@ function App() {
         >
           <div id="all-posts" style={{ width: 600, marginTop: 50 }}>
             <div>
-              <PostComponent />
+              <PostComponent
+                userName="Subhajit Chaudhury"
+                followerCount={23888}
+                time="12m"
+                image="https://media.licdn.com/dms/image/v2/D5603AQF2JM6Dnd3uCQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1727767853473?e=1733961600&v=beta&t=BO80R-WXtjqNQAkwhJb1PJAPKt8EthuuU4-YGw-YSdc"
+                description="Want to know how to win big? Check out how this folks won $6000 of bounty"
+              />
             </div>
             <div>
-              <PostComponent />
+              <PostComponent
+                userName="Piyush Garg"
+                followerCount={5000}
+                time="5h"
+                image="https://media.licdn.com/dms/image/v2/D4D03AQEbCS8vw7XXug/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1668748025406?e=1733961600&v=beta&t=zXpF1kT4O5Z8yq8xvUsbnocgd0lzgrpZtUYwlQH-C20"
+                description="Excited to share my new project on GitHub!"
+              />
             </div>
             <div>
-              <PostComponent />
+              <PostComponent
+                userName="Piyush Garg"
+                followerCount={5000}
+                image="https://media.licdn.com/dms/image/v2/D4D03AQEbCS8vw7XXug/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1668748025406?e=1733961600&v=beta&t=zXpF1kT4O5Z8yq8xvUsbnocgd0lzgrpZtUYwlQH-C20"
+                description="Excited to dance!"
+              />
             </div>
           </div>
         </div>
@@ -40,6 +58,7 @@ function App() {
 
 const style = {
   width: 600,
+  height: 150,
   backgroundColor: "white",
   borderRadius: 10,
   borderColor: "grey",
@@ -48,32 +67,46 @@ const style = {
   marginBottom: 40,
 };
 
-function PostComponent() {
+function PostComponent({ userName, followerCount, time, image, description }) {
   return (
     <div style={style}>
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
-          src="https://media.licdn.com/dms/image/v2/D5603AQF2JM6Dnd3uCQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1727767853473?e=1733961600&v=beta&t=BO80R-WXtjqNQAkwhJb1PJAPKt8EthuuU4-YGw-YSdc"
+          src={image}
           alt="your profile pic"
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: 20,
+            width: 60,
+            height: 60,
+            borderRadius: 60,
           }}
         />
-        <div style={{ fontSize: 10, marginLeft: 10, marginBottom: 10 }}>
-          <b>Subhajit Chaudhury </b>
-          <div>23,888 followers</div>
-          <div>12m</div>
+        <div style={{ fontSize: 20, marginLeft: 10, marginBottom: 10 }}>
+          <b>{userName} </b>
+          <div>{followerCount} followers</div>
+          {time !== undefined ? (
+            <div style={{ display: "flex" }}>
+              <div>{time}</div>
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/900/900782.png"
+                style={{ width: 12, height: 12 }}
+              ></img>
+            </div>
+          ) : null}
         </div>
       </div>
-      <div style={{ fontSize: 12 }}>
-        Want to know how to win big? Check out how this folks won $6000 of
-        bounty
-      </div>
+      <div style={{ fontSize: 20 }}>{description}</div>
     </div>
   );
 }
+
+// Prop validation using PropTypes
+PostComponent.propTypes = {
+  userName: PropTypes.string.isRequired,
+  followerCount: PropTypes.number.isRequired,
+  time: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
 function ProfileCard() {
   return (
