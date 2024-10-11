@@ -1,20 +1,11 @@
 import "./App.css";
+import { useState } from "react";
 import { ToggleButton } from "./ToggleButton";
 import { PostComponent } from "./PostComponent";
 import { ProfileCard } from "./ProfileCard";
 
 function App() {
-  const posts = [
-    {
-      title: "Subhajit Chaudhury",
-      followerCount: 23888,
-      time: "12m",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQF2JM6Dnd3uCQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1727767853473?e=1733961600&v=beta&t=BO80R-WXtjqNQAkwhJb1PJAPKt8EthuuU4-YGw-YSdc",
-      description:
-        "Want to know how to win big? Check out how this folks won $6000 of bounty",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
 
   // based on this posts array i want to render the components thats why somehow we need to use for loop here
   // how can we iterate over it ?
@@ -32,15 +23,18 @@ function App() {
   ));
 
   function addPost() {
-    posts.push({
-      title: "Subhajit Chaudhury",
-      followerCount: 23888,
-      time: "12m",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQF2JM6Dnd3uCQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1727767853473?e=1733961600&v=beta&t=BO80R-WXtjqNQAkwhJb1PJAPKt8EthuuU4-YGw-YSdc",
-      description:
-        "Want to know how to win big? Check out how this folks won $6000 of bounty",
-    });
+    setPosts([
+      ...posts,
+      {
+        title: "Subhajit Chaudhury",
+        followerCount: 23888,
+        time: "12m",
+        image:
+          "https://media.licdn.com/dms/image/v2/D5603AQF2JM6Dnd3uCQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1727767853473?e=1733961600&v=beta&t=BO80R-WXtjqNQAkwhJb1PJAPKt8EthuuU4-YGw-YSdc",
+        description:
+          "Want to know how to win big? Check out how this folks won $6000 of bounty",
+      },
+    ]);
   }
 
   return (
