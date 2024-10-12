@@ -27,7 +27,7 @@ function App() {
   const increaseCount = () => {
     console.log("Count is called"); // by this we can see why are we having that side effect issue
     setCount(function (currentValue) {
-      return currentValue + 1;
+      return currentValue + 1; // it works fine but due two strict mode it renders twice
     });
   };
 
