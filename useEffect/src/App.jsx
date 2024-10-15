@@ -1,43 +1,60 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 
-function App() {
-  //let make a counter app and learn about useEffect
+export default function App() {
+  const [currentTab, setCurrentTab] = useState(0);
+  const [tabData, setTabData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // const [count, setCount] = useState(0);
-
-  // const increaseCount = () => {
-  //   console.log("Count is called"); // by this we can see why are we having that side effect issue
-  //   setCount(count + 1);
-  // };
-
-  // setInterval(increaseCount, 1000);
-
-  //   return (
-  //     <>
-  //       {/* count is {count} */}
-  //       <br />
-  //       {/* <button onClick={increaseCount}>Increment</button> */}
-  //     </>
-  //   );
-  // }
-
-  const [count, setCount] = useState(0);
-
-  const increaseCount = () => {
-    console.log("Count is called"); // by this we can see why are we having that side effect issue
-    setCount(function (currentValue) {
-      return currentValue + 1; // it works fine but due two strict mode it renders twice
-    });
-  };
-
-  // note --> if you ever want to use a state variable inside a useEffect hook then you need to pass it as a dependency
   useEffect(() => {
-    console.log("useEffect is called");
-    setInterval(increaseCount, 1000);
-  }, []);
+    setLoading(true);
+    fetch(
+      "https://jsonplaceholder.typicode.com/todos/" + (currentTab + 1)
+    ).then(async (res) => {
+      const json = await res.json();
+      setTabData(json);
+      setLoading(false);
+    });
+  }, [currentTab]);
 
-  return <div>count is {count}</div>;
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setCurrentTab(0);
+        }}
+        style={{ color: currentTab == 0 ? "red" : "black" }}
+      >
+        #Todo 1
+      </button>
+      <button
+        onClick={() => {
+          setCurrentTab(1);
+        }}
+        style={{ color: currentTab == 1 ? "red" : "black" }}
+      >
+        #Todo 2
+      </button>
+      <button
+        onClick={() => {
+          setCurrentTab(2);
+        }}
+        style={{ color: currentTab == 2 ? "red" : "black" }}
+      >
+        #Todo 3
+      </button>
+      <button
+        onClick={() => {
+          setCurrentTab(3);
+        }}
+        style={{ color: currentTab == 3 ? "red" : "black" }}
+      >
+        #Todo 4
+      </button>
+      <br />
+      {loading ? <p>Loading ...</p> : <p>{tabData.title}</p>}
+    </div>
+  );
 }
 
-export default App;
+// step 1 : returned 4 buttons and did some conditional styling
+// step 2 :  point to note : onclick requires a function signature so onClick={() => setCurrentTab(0)} will word but onClick={setCurrentTab(1)} wont work
